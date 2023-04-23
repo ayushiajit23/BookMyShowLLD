@@ -1,0 +1,22 @@
+On the basis of requirements, ask yourself the following questions
+
+
+User->
+1) How we will manage user entry? : User/Customer Manager class 
+   What will it do?: add/maintains list of customers
+2) Cuser/Customer Manager has list of users, but can they exists independently? Yes [Aggregation]
+   Cuser/Customer Manager->Single responsibility to add Users(of diff types) 
+3)Who will drive the search operations? A BookMyShow Driver/Manager class at the top of other Managers, it will direct what to happen.
+  BookMyShow Driver/Manager->Single responsibility to initiate BookMyShow service.
+4)How to search the movie? we have to search on the basis of multiple factors and that all of them can change at runtime, strategy patterns feels fit to be applied over here.
+  Can have Search/Manager ->single responsibility to decide which way to search (runtime)
+5)Who is going to use Search? User, but it only uses it independently so i feel there is no need of has-a relationship
+6)User will book the ticket, who will take care of it?->Booking Manager
+  Booking Manager->single responsibility to book/block the seats
+  Ques: how will we make sure the seats are not meeting race conditions?: Booking Manager on doing bookSeat() will in background run algo to check race conditions
+7) User will make Payement, How? : By interacting with PaymentDriver
+  PaymentDriver: Single responsibiltiy to makePayementAndNotify()
+  PaymentDriver interacts with PaymentMode and NotificationService
+  How will PaymentMode work? according to me it will be decided at runtime which mode of payment to use, so we van make is strategy.
+  How will NotificationService work? We want to notify the user that payment has been made via Whatsaap,email,sms etc [same content , diff mode]->Observer design paatern should solve this usecase.
+ 
